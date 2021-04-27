@@ -1,4 +1,4 @@
-import os
+import os, sys
 import urllib
 import urllib.request
 import re
@@ -143,4 +143,5 @@ def check_initial_config():
         open(url_file, 'a').close()
 
 if __name__ == "__main__":
+    os.chdir(sys.path[0])
     main()
