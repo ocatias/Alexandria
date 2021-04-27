@@ -1,3 +1,6 @@
-*.hide
+**.hide
 urls.txt
 archive/
+archive_crawler/
+archive_history/
+__pycache__/

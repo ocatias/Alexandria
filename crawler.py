@@ -5,13 +5,14 @@ import re
 import smtplib, ssl
 from email.mime.text import MIMEText
 from datetime import datetime
+import archive_helpers as helpers
 
 url_file = "urls.txt"
 config_file = "config.hide"
 
 pages_in_archive = 0
 
-archive_folder = 'archive'
+archive_folder = 'archive_crawler'
 
 def get_credentials():
     """
@@ -62,18 +63,7 @@ def update_archive():
     urls = filter(lambda x : x.replace(" ", "") != '', urls)
 
     for url in urls:
-        folder_structure = '/'.join(url.split('/')[2:len(url.split('/'))-1])
-
-        path =  os.path.join(archive_folder, folder_structure)
-
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-        last_element_of_url = url.split('/')[-1]
-        if last_element_of_url == '':
-            last_element_of_url = 'index'
-
-        file_name = os.path.join(path, last_element_of_url)
+        path, file_name = helpers.get_path_filename(url, archive_folder)
         print(url)
 
         file_exists = False
